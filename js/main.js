@@ -13,6 +13,7 @@ var raceUI;
 var titleUI;
 var gameManager;
 var transitionController;
+var mainTheme;
 
 
 function setup(){
@@ -34,7 +35,7 @@ function setup(){
 
 
     gameManager = new GameManager();
-    transitionController = new TransitionController("PRERACE");
+    transitionController = new TransitionController("TITLE");
     transitionController.loadTitleTrack();
     playerData = new PlayerData();
     crabSelection = new CrabSelection(518, 128);
@@ -120,6 +121,7 @@ function preload(){
 
     try {
         defaultFont = loadFont("https://srv-file16.gofile.io/download/3x41ni/FranxurterTotallyMedium-gxwjp.ttf");
+        // mainTheme = loadSound("https://srv-file18.gofile.io/download/Sd6MGF/Drunken%20Sailor%20(online-audio-converter.com).ogg");
     } catch(error) {
         console.info("Loading backup font")
         defaultFont = "Helvetica";

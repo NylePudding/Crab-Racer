@@ -300,13 +300,13 @@ class Vehicle {
         circle(0,0,10);
         pop();
 
-        push();
-        translate(0,20);
-        strokeWeight(0);
-        stroke("white");
-        fill("black");
-        circle(0,0,7);
-        pop();
+        // push();
+        // translate(0,20);
+        // strokeWeight(0);
+        // stroke("white");
+        // fill("black");
+        // circle(0,0,7);
+        // pop();
 
 
     }

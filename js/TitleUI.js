@@ -42,6 +42,7 @@ class TitleUI {
         this.letters.push(new VehicleLetter(this.getRandomPosOffScreen(), "g", authorColour, new p5.Vector(610,500), 64, 12));
 
         this.letters.push(new VehicleLetter(this.getRandomPosOffScreen(), "Click to Play!", "#A9BAC9", new p5.Vector(400,300), 64, 12));
+        this.letters.push(new VehicleLetter(this.getRandomPosOffScreen(), "(instructions below)", "#A9BAC9", new p5.Vector(400,360), 48, 12));
 
     }
 

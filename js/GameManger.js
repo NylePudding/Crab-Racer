@@ -28,6 +28,7 @@ class GameManager {
 
         if (this.finishers.length > 0){
             this.countDown = "A Winner!"
+            
             setTimeout(function(){
                 if (transitionController.uiState != "POSTRACE"){
                     transitionController.startPostRace();
