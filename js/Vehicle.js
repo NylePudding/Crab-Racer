@@ -6,8 +6,13 @@ class Vehicle {
     r;
     maxforce;
     maxspeed;
+    name;
+    colour;
+    betAmount;
+    state;
+    id;
 
-    constructor(x, y){
+    constructor(x, y, name, colour, id){
 
         this.acceleration = new p5.Vector(0, 0);
         this.velocity = new p5.Vector(random(4) -2, random(4) -2);
@@ -15,6 +20,12 @@ class Vehicle {
         this.r = 6;
         this.maxspeed = random(4) + 2;
         this.maxforce = 0.1;
+        this.name = name;
+        this.colour = colour;
+        this.betAmount = 0;
+        this.state = "RACING";
+        this.arrivalTarget = new p5.Vector(100, 100);
+        this.id = id;
 
     }
 
@@ -35,17 +46,32 @@ class Vehicle {
     }
 
     applyBehaviours(vs, path, flow){
-        let f = this.followPath(path);
+
+        if (this.state == "RACING"){
+
+            let f = this.followPath(path);
+            f.mult(1);
+            this.applyForce(f);
+
+            if (path.hasFinished(this)){
+                gameManager.addFinisher(this);
+            }
+
+        } else if (this.state == "ARRIVING"){
+
+            let a = this.arrive(this.arrivalTarget)
+            a.mult(1);
+            this.applyForce(a);
+
+        }
+
         let s = this.separate(vs);
-        let ff = this.followFlow(flow)
-
-        f.mult(1);
         s.mult(1.5);
-        ff.mult(0);
-
-        this.applyForce(f);
         this.applyForce(s);
-        this.applyForce(ff);
+    }
+
+    setState(state){
+        this.state = state;
     }
 
     applyForce(force){
@@ -78,7 +104,11 @@ class Vehicle {
 
         let steer = p5.Vector.sub(desired, this.velocity);
         steer.limit(this.maxforce);
-        this.applyForce(steer);
+        return(steer);
+    }
+
+    setArrivalTarget(pos){
+        this.arrivalTarget = pos;
     }
 
     followFlow(flow){
@@ -134,7 +164,7 @@ class Vehicle {
         }
         
         // Only if the distance is greater than the path's radius do we bother to steer
-        if (worldRecord > p.radius) {
+        if (worldRecord > path.radius) {
             return this.seek(target);
         } else {
             return new p5.Vector(0, 0);
@@ -199,18 +229,28 @@ class Vehicle {
 
     display(){
 
-        let theta = this.velocity.heading() + radians(90);
+        let theta = this.velocity.heading() + radians(0);
         fill(175);
         stroke(0);
+
         push();
-        translate(this.location.x,this.location.y);
+        translate(this.location.x, this.location.y);
+        scale(0.35, 0.35);
         rotate(theta);
-        beginShape(TRIANGLES);
-        vertex(0, -this.r*2);
-        vertex(-this.r, this.r*2);
-        vertex(this.r, this.r*2);
-        endShape();
+
+        let leftMils = millis();
+        let rightMils = millis() * -1;
+        
+        this.drawLeftLeg(new p5.Vector(-60,-20), radians(-90 + getLegAngleOffset(leftMils)));
+        this.drawLeftLeg(new p5.Vector(-60, -5), radians(-95 + getLegAngleOffset(leftMils + 40 )));
+        this.drawLeftLeg(new p5.Vector(-60, 10), radians(-100 + getLegAngleOffset(leftMils + 80 )));
+
+        this.drawRightLeg(new p5.Vector(60, 10),radians(95 + getLegAngleOffset(rightMils)));
+        this.drawRightLeg(new p5.Vector(60, -5),radians(90 + getLegAngleOffset(rightMils + 40 )));
+        this.drawRightLeg(new p5.Vector(60, -20),radians(85 + getLegAngleOffset(rightMils + 80 )));
+        this.drawBody();
         pop();
+
     }
 
     borders(){
@@ -227,6 +267,82 @@ class Vehicle {
         ab.mult(ap.dot(ab));
         let normalPoint = p5.Vector.add(a,ab);
         return normalPoint;
+    }
+
+    drawBody(){
+
+        strokeWeight(0);
+        fill(this.colour);
+
+        push();
+        scale(1,0.6);
+        circle(0,0, 100);
+        pop();
+
+        push();
+        translate(-14, 10);
+        strokeWeight(4);
+        stroke("white");
+        fill("black");
+        circle(0,0,10);
+        pop();
+
+        push();
+        translate(14, 10);
+        strokeWeight(4);
+        stroke("white");
+        fill("black");
+        circle(0,0,10);
+        pop();
+
+        push();
+        translate(0,20);
+        strokeWeight(0);
+        stroke("white");
+        fill("black");
+        circle(0,0,7);
+        pop();
+
+
+    }
+
+    drawRightLeg(pos, ang){
+        push();
+        scale(0.6,0.7);
+        translate(pos.x,pos.y);
+        rotate(ang);
+        
+        strokeWeight(0);
+        fill(this.colour);
+        beginShape();
+        vertex(0,0);
+        vertex(-2,-30);
+        vertex(16,-80);
+        vertex(10,-30);
+        vertex(14,0);
+        endShape(CLOSE);
+
+
+        pop();
+    }
+
+    drawLeftLeg(pos, ang){
+        push();
+        scale(0.6,0.7);
+        translate(pos.x,pos.y);
+        rotate(ang);
+        
+        strokeWeight(0);
+        fill(this.colour);
+        beginShape();
+        vertex(0,0);
+        vertex(2,-30);
+        vertex(-16,-80);
+        vertex(-10,-30);
+        vertex(-14,0);
+        endShape(CLOSE);
+
+        pop();
     }
 
 }

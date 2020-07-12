@@ -21,11 +21,21 @@ class Path {
         return this.points[this.points.length - 1];
     }
 
+    hasFinished(c){
+        let distToFinish = this.getEnd().dist(c.location);
+
+        if (distToFinish < this.radius * 2){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     display(){
 
         // Draw thick line for radius
-        stroke(175);
-        strokeWeight(this.radius*2);
+        stroke("#EEE8A9");
+        strokeWeight(this.radius*3);
         noFill();
         beginShape();
         for (v in this.points) {
@@ -34,14 +44,14 @@ class Path {
         endShape();
 
         // Draw thin line for center of path
-        stroke(0);
-        strokeWeight(1);
-        noFill();
-        beginShape();
-        for (v in this.points) {
-            vertex(this.points[v].x, this.points[v].y);
-        }
-        endShape();
+        // stroke(0);
+        // strokeWeight(1);
+        // noFill();
+        // beginShape();
+        // for (v in this.points) {
+        //     vertex(this.points[v].x, this.points[v].y);
+        // }
+        // endShape();
 
     }
 
