@@ -14,7 +14,7 @@ class RaceUI {
         fill("#D21D2B");
         textAlign(LEFT,CENTER);
         textSize(64);
-        text("Race " + gameManager.raceNo + " !", 300 ,64);
+        text("Race " + gameManager.raceNo, 300 ,64);
     }
 
     drawCountDown(){

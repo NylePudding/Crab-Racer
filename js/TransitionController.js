@@ -106,7 +106,6 @@ class TransitionController {
 
     loadTrainingTrack(){
         let trainingTrack = new Path();
-        trainingTrack = new Path();
         trainingTrack.addPoint(150,200);
         trainingTrack.addPoint(350,200);
         trainingTrack.addPoint(400,250);
@@ -117,6 +116,17 @@ class TransitionController {
         trainingTrack.addPoint(100,250);
         trainingTrack.addPoint(150,200);
         path = trainingTrack;
+    }
+
+
+    loadTitleTrack(){
+        let titleTrack = new Path();
+        titleTrack.addPoint(48, 48);
+        titleTrack.addPoint(752, 48);
+        titleTrack.addPoint(752, 552);
+        titleTrack.addPoint(48, 552);
+        titleTrack.addPoint(48, 48);
+        path = titleTrack;
     }
 
 }

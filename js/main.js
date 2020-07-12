@@ -10,6 +10,7 @@ var preRaceUI;
 var postRaceUI;
 var playerData;
 var raceUI;
+var titleUI;
 var gameManager;
 var transitionController;
 
@@ -27,15 +28,14 @@ function setup(){
     vehicles.push(new Vehicle(150,150,"Margret","#57A355", 4));
 
     gameManager = new GameManager();
-    transitionController = new TransitionController("PRERACE");
-    transitionController.loadTrainingTrack();
+    transitionController = new TransitionController("TITLE");
+    transitionController.loadTitleTrack();
     playerData = new PlayerData();
     crabSelection = new CrabSelection(518, 128);
     preRaceUI = new PreRaceUI(playerData);
     postRaceUI = new PostRaceUI(playerData);
     raceUI = new RaceUI(playerData);
-
-
+    titleUI = new TitleUI();
     
 }
 
@@ -52,18 +52,17 @@ function draw(){
     strokeWeight(2);
 
     gameManager.process();
-
-    path.display();
-
     
 
     if (transitionController.uiState == "TITLE"){
-
+        titleUI.display();
     } else if (transitionController.uiState == "PRERACE") {
         crabSelection.display();
         preRaceUI.display();
+        path.display();
     } else if (transitionController.uiState == "RACE"){
         raceUI.display();
+        path.display();
     } else if (transitionController.uiState == "POSTRACE"){
         postRaceUI.display();
     }
@@ -72,6 +71,8 @@ function draw(){
         vehicles[i].applyBehaviours(vehicles, path, ff)
         vehicles[i].run();
     }
+
+
 
 
 }
