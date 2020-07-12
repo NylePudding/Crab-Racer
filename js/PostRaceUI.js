@@ -9,9 +9,15 @@ class PostRaceUI {
     display(){
         textFont(defaultFont);
         this.drawPodium();
-        this.drawShellsWon();
         this.drawWinner();
-        this.drawNextRaceButton();
+
+        if (gameManager.raceNo < 6){
+            this.drawNextRaceButton();
+            this.drawShellsWon();
+        } else {
+            this.drawTotalShells();
+            this.drawThankYou();
+        }
     }
 
     drawPodium(){
@@ -80,6 +86,22 @@ class PostRaceUI {
         textSize(48);
         textAlign(CENTER, CENTER);
         text("Payout: " + gameManager.calculateShellsWon() + " Shells", 200, 545);
+    }
+
+    drawThankYou(){
+        noStroke();
+        fill("#8997C1");
+        textSize(72);
+        textAlign(CENTER, CENTER);
+        text("Thank you for playing!",400,200)
+    }
+
+    drawTotalShells(){
+        noStroke();
+        fill("#D21D2B");
+        textSize(48);
+        textAlign(CENTER, CENTER);
+        text("Total: " + Number(gameManager.calculateShellsWon() + playerData.shells) + " Shells", 400, 545);
     }
 
     drawWinner(){

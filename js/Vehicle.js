@@ -11,6 +11,9 @@ class Vehicle {
     betAmount;
     state;
     id;
+    bronzeMedals;
+    silverMedals;
+    goldMedals;
 
     constructor(x, y, name, colour, id){
 
@@ -26,7 +29,9 @@ class Vehicle {
         this.state = "RACING";
         this.arrivalTarget = new p5.Vector(100, 100);
         this.id = id;
-
+        this.bronzeMedals = 0;
+        this.silverMedals = 0;
+        this.goldMedals = 0;
     }
 
     run(){

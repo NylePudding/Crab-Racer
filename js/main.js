@@ -22,13 +22,19 @@ function setup(){
     
     vehicles = [];
 
-    vehicles.push(new Vehicle(150,150,"Barry","#D21D2B", 1));
-    vehicles.push(new Vehicle(150,150,"Clive","#A3336B", 2));
-    vehicles.push(new Vehicle(150,150,"Mary","#A39344", 3));
-    vehicles.push(new Vehicle(150,150,"Margret","#57A355", 4));
+    vehicles.push(new Vehicle(400,300,"Barry","#D21D2B", 1));
+    vehicles.push(new Vehicle(400,300,"Clive","#A3336B", 2));
+    vehicles.push(new Vehicle(400,300,"Gertrude","#A39344", 3));
+    vehicles.push(new Vehicle(400,300,"Margret","#57A355", 4));
+    vehicles.push(new Vehicle(400,300,"Goliath","#91A5EB", 5));
+    vehicles.push(new Vehicle(400,300,"Muffin","#F5B235", 6));
+    vehicles.push(new Vehicle(400,300,"Pete","#C14CEB", 7));
+    vehicles.push(new Vehicle(400,300,"Goose","#A1A1A1", 8));
+
+
 
     gameManager = new GameManager();
-    transitionController = new TransitionController("TITLE");
+    transitionController = new TransitionController("PRERACE");
     transitionController.loadTitleTrack();
     playerData = new PlayerData();
     crabSelection = new CrabSelection(518, 128);
@@ -53,16 +59,17 @@ function draw(){
 
     gameManager.process();
     
+    titleUI.display();
 
     if (transitionController.uiState == "TITLE"){
-        titleUI.display();
+        
     } else if (transitionController.uiState == "PRERACE") {
+        path.display();
         crabSelection.display();
         preRaceUI.display();
-        path.display();
     } else if (transitionController.uiState == "RACE"){
-        raceUI.display();
         path.display();
+        raceUI.display();
     } else if (transitionController.uiState == "POSTRACE"){
         postRaceUI.display();
     }
@@ -80,7 +87,8 @@ function draw(){
 function mousePressed() {
 
     if (transitionController.uiState == "TITLE"){
-
+        titleUI.exit();
+        transitionController.startPreRace();
     } else if (transitionController.uiState == "PRERACE") {
 
 
@@ -91,7 +99,6 @@ function mousePressed() {
             }
         } else if (preRaceUI.isRaceButtonHover(mouseX, mouseY)){
             transitionController.startRace(vehicles, path);
-            console.info("RACE CLICK");
         } else {
             let c = Utils.getClosestCrab(mouseX, mouseY, vehicles);
             crabSelection.setSelectedCrab(c);
@@ -103,7 +110,6 @@ function mousePressed() {
 
         if (postRaceUI.isNextRaceButtonHover(mouseX,mouseY)){
             transitionController.startPreRace();
-            console.info("NEXT RACE CLICK");
         }
 
     }

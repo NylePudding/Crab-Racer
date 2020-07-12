@@ -4,7 +4,7 @@ class PlayerData {
 
 
     constructor(){
-        this.shells = 10;
+        this.shells = 6;
     }
 
 

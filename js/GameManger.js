@@ -5,7 +5,7 @@ class GameManager {
     finishers;
 
     constructor(){
-        this.raceNo = 1;
+        this.raceNo = 0;
         this.countDown = "";
         this.finishers = [];
     }
@@ -32,7 +32,7 @@ class GameManager {
                 if (transitionController.uiState != "POSTRACE"){
                     transitionController.startPostRace();
                 }
-            }, 5000);
+            }, 7500);
         }
 
     }

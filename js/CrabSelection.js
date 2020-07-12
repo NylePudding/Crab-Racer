@@ -32,10 +32,12 @@ class CrabSelection {
         }
 
         this.drawBetButton();
+        
 
         if (this.selectedCrab){
             this.displayCrab();
             this.drawBetAmount();
+            this.displayMedals();
         }
 
         pop();
@@ -48,7 +50,7 @@ class CrabSelection {
         stroke(0);
 
         push();
-        translate(125, 175);
+        translate(125, 125);
         //scale(0.35, 0.35);
         //rotate(theta);
 
@@ -64,6 +66,38 @@ class CrabSelection {
         this.drawRightLeg(new p5.Vector(60, -20),radians(85 + getLegAngleOffset(rightMils + 80 )));
         this.drawBody();
         pop();
+
+    }
+
+    displayMedals(){
+        push();
+        translate(0, 225);
+        
+        textAlign(CENTER, CENTER);
+
+        fill("#C45D3B");
+        circle(60, 5, 50);
+        fill("#E66D45");
+        circle(60, 0, 50);
+        
+        fill("#5B6C78");
+        circle(125, 5, 50);
+        fill("#708594");
+        circle(125, 0, 50);
+
+        fill("#C9A220");
+        circle(190, 5, 50);
+        fill("#F0C026");
+        circle(190, 0, 50);
+
+        fill("white");
+        text(this.selectedCrab.bronzeMedals, 60,-2);
+        text(this.selectedCrab.silverMedals, 125,-2);
+        text(this.selectedCrab.goldMedals, 190,-2);
+
+        pop();
+
+
 
     }
 
