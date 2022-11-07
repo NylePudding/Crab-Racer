@@ -120,8 +120,7 @@ function mousePressed() {
 function preload(){
 
     try {
-        defaultFont = loadFont("https://srv-file16.gofile.io/download/3x41ni/FranxurterTotallyMedium-gxwjp.ttf");
-        // mainTheme = loadSound("https://srv-file18.gofile.io/download/Sd6MGF/Drunken%20Sailor%20(online-audio-converter.com).ogg");
+        defaultFont = loadFont("fonts/defaultCrabFont.ttf");
     } catch(error) {
         console.info("Loading backup font")
         defaultFont = "Helvetica";
